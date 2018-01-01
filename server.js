@@ -1,16 +1,20 @@
 //package dependencies
+require('dotenv').config() //enables use of .env
 var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var cors = require('cors')
+var mongoose = require('mongoose')
 
 //file dependencies
 var index = require('./routes/index');
 var users = require('./routes/users');
 
-//other vars
+//database
+var db_url = (process.env.NODE_ENV === "production") ? process.env.MONGODB_URI : process.env.MONGODB_LOCAL
+mongoose.connect(db_url)
+
 var port = process.env.PORT || 3001;
 
 //set up app
@@ -22,27 +26,26 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
 
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
+    console.log('error handler')
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+  // put error to console
+  console.log(err.status || 500);
 });
 
+//To prevent errors from Cross Origin Resource Sharing, we will set
+//our headers to allow CORS with middleware like so:
+app.use(cors({credentials: true, origin: true}))
+
 module.exports = app;
+
+// load routes and pass in app
+require('./routes/routes.js')(app);
 
 app.listen(port, function() {
     console.log(`api running on port ${port}`);
