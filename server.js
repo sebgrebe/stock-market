@@ -1,24 +1,22 @@
 //package dependencies
 require('dotenv').config() //enables use of .env
-var express = require('express');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var cors = require('cors')
-var mongoose = require('mongoose')
-
-//file dependencies
-var index = require('./routes/index');
-var users = require('./routes/users');
+const express = require('express');
+const SocketServer = require('ws').Server
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const cors = require('cors')
+const mongoose = require('mongoose')
+const server = require('http').createServer()
 
 //database
 var db_url = (process.env.NODE_ENV === "production") ? process.env.MONGODB_URI : process.env.MONGODB_LOCAL
 mongoose.connect(db_url)
 
-var port = process.env.PORT || 3001;
+var port = process.env.PORT || 8080;
 
 //set up app
-var app = express();
+const app = express()
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -42,11 +40,23 @@ app.use(function(err, req, res, next) {
 //our headers to allow CORS with middleware like so:
 app.use(cors({credentials: true, origin: true}))
 
-module.exports = app;
+//set up websocket server
+const wss = new SocketServer({server: server})
+wss.on('connection', (ws) => {
+    console.log('client connected')
+    ws.on('message',(message) => {
+        console.log(message)
+    })
+    ws.send('something')
+})
 
 // load routes and pass in app
 require('./routes/routes.js')(app);
 
-app.listen(port, function() {
-    console.log(`api running on port ${port}`);
-});
+//on http requests, load app into server
+server.on('request', app)
+
+server.listen(port, () => console.log(`listening on ${ port }`))
+
+
+

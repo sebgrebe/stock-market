@@ -16,7 +16,7 @@ module.exports = (data_table,callback) => {
             newStock.save((err) => {
                 if (err) return callback({
                     error: true,
-                    message: 'Saving stock to database failed'
+                    message: 'Failed to save stock to database'
                 })
                 return callback({
                     error: false,
