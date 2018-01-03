@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import $ from 'jquery'
+import socket from '../index.js'
 
 class Search extends Component {
     constructor(props) {
@@ -9,26 +9,7 @@ class Search extends Component {
     Search(event) {
         event.preventDefault()
         let search_term = document.getElementById("input").value
-        $.ajax({
-            url: '/api/search',
-            type: 'POST',
-            data: {
-                search_term: search_term
-            },
-            beforeSend: (xhr) => {
-                xhr.withCredentials = true;
-            },
-            success: (res) => {
-                console.log(res)
-            },
-            error: (xhr) => {
-            //handles timeout error
-            if (xhr.status === 0) {
-                window.location.reload();
-            }
-            else {alert("Status: "+xhr.status+ ". "+xhr.statusText)}
-        }
-        })
+        socket.send(search_term)
     }
     render() {
         return (
