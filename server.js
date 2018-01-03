@@ -1,13 +1,15 @@
 //package dependencies
 require('dotenv').config() //enables use of .env
 const express = require('express');
-const SocketServer = require('ws').Server
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const cors = require('cors')
 const mongoose = require('mongoose')
 const server = require('http').createServer()
+
+//file dependencies
+const websokcet = require('./modules/websocket')
 
 //database
 var db_url = (process.env.NODE_ENV === "production") ? process.env.MONGODB_URI : process.env.MONGODB_LOCAL
@@ -41,14 +43,7 @@ app.use(function(err, req, res, next) {
 app.use(cors({credentials: true, origin: true}))
 
 //set up websocket server
-const wss = new SocketServer({server: server})
-wss.on('connection', (ws) => {
-    console.log('client connected')
-    ws.on('message',(message) => {
-        console.log(message)
-    })
-    ws.send('something')
-})
+require('./modules/websocket.js')(server)
 
 // load routes and pass in app
 require('./routes/routes.js')(app);

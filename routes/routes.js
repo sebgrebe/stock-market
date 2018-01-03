@@ -1,5 +1,6 @@
 var findStock = require('../modules/findStock')
 var saveStock = require('../modules/saveStock')
+const eventEmitter = require('../server.js')
 
 module.exports = (app) => {
     app.post('/api/search',(req,res) => {
@@ -8,6 +9,9 @@ module.exports = (app) => {
             saveStock(response1.data_table,(response2) => {
                 console.log(response2)
                 res.send(response2)
+                eventEmitter.on('event', () => {
+                    console.log('event')
+                })
             })
         })
     })

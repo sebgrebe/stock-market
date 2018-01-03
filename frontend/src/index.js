@@ -7,10 +7,10 @@ import { Provider } from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
 
 const socket = new WebSocket("ws://localhost:8080")
-// socket.addEventListener('open',() => {
-//     socket.send('hello')
-// })
-
+socket.addEventListener('message', (event) => {
+    console.log(event.data)
+})
+export default socket
 
 render(
     <Provider>

@@ -1,4 +1,4 @@
-var Stocks = require('../models/stocks')
+const Stocks = require('../models/stocks')
 
 module.exports = (data_table,callback) => {
     let data = data_table.data
