@@ -4,16 +4,16 @@ import './index.css';
 import App from './components/App';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import reducer from './reducers';
 import registerServiceWorker from './registerServiceWorker';
 
 const socket = new WebSocket("ws://localhost:8080")
-socket.addEventListener('message', (event) => {
-    console.log(event.data)
-})
 export default socket
 
+let store = createStore(reducer)
+
 render(
-    <Provider>
+    <Provider store={store}>
         <App />
     </Provider>,
     document.getElementById('root')
