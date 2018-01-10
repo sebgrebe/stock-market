@@ -1,0 +1,1 @@
+const Stocks = require('../models/stocks')module.exports = (ticker,callback) => {    Stocks.remove({'ticker': ticker}, (err) => {        if (err) return callback({            error: true,            message: 'Deleting stock failed: ' + err        })        return callback({            error: false,            message: 'update'        })    })}
