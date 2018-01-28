@@ -35,7 +35,6 @@ class Data extends Component {
             url: '/api/stocks',
             type: 'GET',
             success: (res) => {
-                console.log(res)
                 this.props.actions.updateStocks(res)
             },
             error: (xhr) => {
