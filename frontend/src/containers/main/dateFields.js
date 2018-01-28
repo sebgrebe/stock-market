@@ -19,25 +19,24 @@ class DateFields extends Component {
         })
     }
     update = () => {
-        if (this.state.start_date > today) {
-            this.setState({
-                start_date: '2017-01-01'
-            })
-        }
-        else if (this.state.end_date > today) {
+        if (this.state.end_date > today) {
             this.setState({
                 end_date: today
             })
+            this.props.updateDate(this.state.start_date,today)
         }
         else if (this.state.start_date >= this.state.end_date) {
+            console.log('this')
             this.setState({
                 start_date: '2017-01-01',
                 end_date: today
             })
+             this.props.updateDate('2017-01-01',today)
         }
         else {
-            this.props.updateDate(this.state.start_date, this.state.end_date)
-        }
+             this.props.updateDate(this.state.start_date,this.state.end_date)
+         }
+
     }
     handleChange = (e,date) => {
         if (date === 'start') {

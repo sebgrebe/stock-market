@@ -33,8 +33,9 @@ button {
 }
 
 .date_msg {
-    display: inline-block;
-    margin-left: 20px
+    width: 280px;
+    margin-left: auto;
+    margin-right: auto
 }
 
 .delete_btn {
