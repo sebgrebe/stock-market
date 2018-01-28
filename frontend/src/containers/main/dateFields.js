@@ -26,7 +26,6 @@ class DateFields extends Component {
             this.props.updateDate(this.state.start_date,today)
         }
         else if (this.state.start_date >= this.state.end_date) {
-            console.log('this')
             this.setState({
                 start_date: '2017-01-01',
                 end_date: today
