@@ -6,6 +6,7 @@ var stockSchema = mongoose.Schema({
     'name': String,
     'dates': [],
     'prices': [],
+    'stamp': String
 });
 
 module.exports = mongoose.model('stocks', stockSchema);

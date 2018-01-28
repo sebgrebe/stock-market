@@ -1,5 +1,5 @@
 .alert {
-    height: 25px;
+    font-size: 14px;
     line-height: 25px;
     padding-top: 0;
     padding-left: 5px;
@@ -22,6 +22,21 @@ button {
     padding: 0
 }
 
+.date_fields {
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.date_field {
+    width: 150px
+}
+
+.date_msg {
+    display: inline-block;
+    margin-left: 20px
+}
+
 .delete_btn {
     font-weight: bolder;
     float: right;
@@ -31,6 +46,11 @@ button {
 
 .delete_btn:hover {
     opacity: 0.5
+}
+
+.delete_msg {
+    margin-left: 20px;
+    padding: 0
 }
 
 .footer {
@@ -47,6 +67,26 @@ h5 {
     text-align: center;
     font-style: italic;
     margin-bottom: 20px
+}
+
+.loader {
+    border: 10px solid #f3f3f3; /* Light grey */
+    border-top: 10px solid darkgray; /* Dark grey */
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loader_box {
+    height: 80px
 }
 
 .logo {
@@ -71,7 +111,7 @@ h5 {
 }
 
 .search_input {
-    width: 120px;
+    width: 105px;
     margin-bottom: 3px
 }
 
