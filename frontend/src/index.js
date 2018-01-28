@@ -7,8 +7,8 @@ import { Provider } from 'react-redux';
 import reducer from './reducers';
 import registerServiceWorker from './registerServiceWorker';
 
-const socket = new WebSocket("ws://localhost:8080")
-export default socket
+var HOST = location.origin.replace(/^http/, 'ws')
+var ws = new WebSocket(HOST);
 
 let store = createStore(reducer)
 
