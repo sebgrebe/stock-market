@@ -7,7 +7,7 @@ const Stocks = ({stocks}) => {
         return (
             <div className="stocks">
             {stocks.map((stock) =>
-                <div className="col-sm-3" style={{backgroundColor: colors[stocks.indexOf(stock)]}}>
+                <div className="col-sm-3 stock" style={{backgroundColor: colors[stocks.indexOf(stock)]}}>
                     <div>
                         <div className="stock_ticker" >{stock.ticker}</div>
                         <Delete ticker={stock.ticker} />
