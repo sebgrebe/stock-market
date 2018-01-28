@@ -42,6 +42,11 @@ app.use(function(err, req, res, next) {
 //our headers to allow CORS with middleware like so:
 app.use(cors({credentials: true, origin: true}))
 
+//express only serves static assets in production
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static('frontend/build'))
+}
+
 //set up websocket server
 require('./modules/websocket.js')(server)
 
