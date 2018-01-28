@@ -13,7 +13,6 @@ class Data extends Component {
     componentDidMount() {
         socket.addEventListener('message', (event) => {
             const msg = JSON.parse(event.data)
-            console.log(event)
             if (msg.message === "update") {
                 this.getStocks()
             }
