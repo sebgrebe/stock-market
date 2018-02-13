@@ -1,5 +1,3 @@
-import $ from 'jquery';
-
 export const updateStocks = (stocks) => ({
     type: 'UPDATE',
     stocks: stocks
